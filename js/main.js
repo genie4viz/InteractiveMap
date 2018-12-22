@@ -20,25 +20,21 @@ var projection = d3
 // Define map path
 var path = d3
   .geoPath()
-  .projection(projection)
-  ;
+  .projection(projection);
 
 // Create function to apply zoom to countriesGroup
 function zoomed() {
   t = d3
     .event
-    .transform
-    ;
+    .transform;
   countriesGroup
-    .attr("transform", "translate(" + [t.x, t.y] + ")scale(" + t.k + ")")
-    ;
+    .attr("transform", "translate(" + [t.x, t.y] + ")scale(" + t.k + ")");
 }
 
 // Define map zoom behaviour
 var zoom = d3
   .zoom()
-  .on("zoom", zoomed)
-  ;
+  .on("zoom", zoomed);
 
 function getTextBox(selection) {
   selection
@@ -135,7 +131,6 @@ var svg = d3
 d3.json(
   "./json/custom50.json",
   function (json) {
-    console.log(json);
     //Bind data and create one path per GeoJSON feature
     countriesGroup = svg.append("g").attr("id", "map");
     // add a background rectangle
@@ -157,8 +152,6 @@ d3.json(
         return "country" + d.properties.iso_a3;
       })
       .attr("class", "country")
-          //  .attr("stroke-width", 10)
-          //  .attr("stroke", "#ff0000")
       // add a mouseover action to show name label for feature/country
       .on("mouseover", function (d, i) {
         d3.select("#countryLabel" + d.properties.iso_a3).style("display", "block");
@@ -167,7 +160,9 @@ d3.json(
         d3.select("#countryLabel" + d.properties.iso_a3).style("display", "none");
       })
       // add an onclick action to zoom into clicked country
-      .on("click", function (d, i) {
+      .on("click", function (d, i) {        
+        show_info(d.properties.iso_n3)
+
         d3.selectAll(".country").classed("country-on", false);
         d3.select(this).classed("country-on", true);
         boxZoom(path.bounds(d), path.centroid(d), 20);
@@ -197,6 +192,7 @@ d3.json(
       })
       // add an onclick action to zoom into clicked country
       .on("click", function (d, i) {
+        show_info(d.properties.iso_n3);
         d3.selectAll(".country").classed("country-on", false);
         d3.select("#country" + d.properties.iso_a3).classed("country-on", true);
         boxZoom(path.bounds(d), path.centroid(d), 20);
@@ -229,7 +225,27 @@ d3.json(
     initiateZoom();
   }
 );
+//show information 
+function show_info(country_id) {
+  //show company informations per country
+  var dealers = [];
+  jQuery.ajax({
+    dataType: "json",
+    url: "json/dealer.json",
+    async: false,
+    success: function (data) { dealers = data }
+  });
 
+  var selected = dealers.filter(ag => ag.id == country_id);
+  if (selected.length > 0) {// if there is any matched company         
+    $("#company-name").text(selected[0].company_name);
+    $("#distributor-name").text('Distributor for ' + selected[0].country);
+    $("#country").text(selected[0].country);
+    $("#contact-company").text("Contact " + selected[0].company_name);
+    $("#call-company").text("Call " + selected[0].company_name);
+    $("#visit-company").text("Visit " + selected[0].company_name + " site");
+  }
+}
 // animation for showing info-pane
 var left_pos = 200, popup_pan = 22, expand_flag = true;
 $('#close-button').on('click', function () {
