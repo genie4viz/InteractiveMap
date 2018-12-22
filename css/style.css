@@ -38,6 +38,7 @@ svg rect {
 .countryLabelBg{
   fill: #30BCED;   /* country label background colour */
 }
+/*info-pane for distributor info*/
 .info-container {
   position: fixed;
   display: flex;
@@ -47,14 +48,24 @@ svg rect {
   height: 100vh;    
 }
 .distributor-info {
-  position: fixed;
-  display: flex;
-  width: 300px;
-  height: 200px;
-  border: solid 1px #333;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background-color: rgba(205,205,205, .7);
-  box-shadow: 2px 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);  
+  position: fixed;  
+  width: 200px;/* width: auto*/
+  opacity: 0.9;
   z-index: 10;
+}
+.distributor-info .close-button {
+  width: 22px;
+  box-shadow: 2px 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);    
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  border-left: solid 1px #eee;
+  background-color: white;
+  cursor: pointer;
+}
+.distributor-info .close-button:hover {  
+  background-color: #eef;
+}
+.distributor-info .info-body {  
+  background-color: white;
+  box-shadow: 2px 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);    
 }

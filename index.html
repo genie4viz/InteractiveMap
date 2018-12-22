@@ -9,20 +9,25 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/mdb.lite.min.css" rel="stylesheet">
     <link href="./css/mdb.min.css" rel="stylesheet">
+    <link href="./css/font-awesome.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
     <div class="container m-0 p-0 justify-content-center">
-        <div class="info-container justify-content-center align-items-end">
+        <div class="info-container justify-content-start align-items-center">
             <div id="map-holder"></div>
-            <div class="distributor-info flex-column p-4">
-                <h4 id="company-name" class="text-primary">Company Name</h1>
-                <h4 id="distributor" class="text-primary">Distributer Name</h1>
-                <div class="primary">Contact</h1>
-                <h4 class="text-primary">Call</h1>
-                <h4 class="text-primary">Visit</h1>
+            <div id="distributor-info" class="distributor-info d-flex">
+                <div class="info-body w-100 h-100 p-1 d-flex flex-column">
+                    <h4 id="company-name" class="text-dark strong ml-2 mt-2">Company Name</h4>
+                    <h6 id="distributor-name" class="text-dark ml-2">Distributor</h6>
+                    <h5 id="country" class="text-dark ml-2">Country</h5>
+                    <button type="button" class="btn btn-indigo">Contact Company</button>
+                    <button type="button" class="btn btn-blue-grey">Call Company</button>
+                    <button type="button" class="btn btn-info">Visit Company Site</button>
+                </div>
+                <div id="close-button" class="close-button d-flex justify-content-center align-items-center p-1"><i id="arrow-direction"
+                        class="fa fa-chevron-left"></i></div>
             </div>
         </div>
     </div>
