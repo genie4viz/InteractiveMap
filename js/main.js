@@ -152,7 +152,7 @@
             .enter()
             .append("path")
             .attr("d", path)
-            .attr("id", function(d, i) {
+            .attr("id", function(d, i) {              
               return "country" + d.properties.iso_a3;
             })
             .attr("class", "country")
@@ -207,7 +207,8 @@
             .style("text-anchor", "middle")
             .attr("dx", 0)
             .attr("dy", 0)
-            .text(function(d) {
+            .text(function(d) {              
+              console.log(d.properties.name)
               return d.properties.name;
             })
             .call(getTextBox);

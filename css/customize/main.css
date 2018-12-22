@@ -1,0 +1,17 @@
+.card-body {
+    height : 40px;
+}
+.btn-rounded {
+    -webkit-border-radius: 2em;
+    border-radius: 10em;
+}
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
