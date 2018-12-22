@@ -2,13 +2,15 @@
 <html lang="utf-8">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Interactive Map</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/mdb.lite.min.css" rel="stylesheet">
     <link href="./css/mdb.min.css" rel="stylesheet">
-    <link href="./css/font-awesome.css" rel="stylesheet">
+    <link href="./css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/select2.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
 </head>
 
@@ -16,28 +18,41 @@
     <div class="container m-0 p-0 justify-content-center">
         <div class="info-container justify-content-start align-items-center">
             <div id="map-holder"></div>
-            <div id="distributor-info" class="distributor-info d-flex">
+            <div id="distor-info-container" class="distor-info-container d-flex">
                 <div class="info-body w-100 h-100 p-1 d-flex flex-column">
                     <h4 id="company-name" class="text-dark strong ml-2 mt-2">Company Name</h4>
-                    <h6 id="distributor-name" class="text-dark ml-2">Distributor</h6>
+                    <h6 id="distor-name" class="text-dark ml-2">Distributor</h6>
                     <h5 id="country" class="text-dark ml-2">Country</h5>
-                    <button type="button" class="btn btn-indigo">
-                        <h6 id="contact-company">Contact Company</h6>
+                    <button type="button" class="btn btn-indigo btn-sm">
+                        <h6 id="contact-company" class="m-0">Contact</h6>
                     </button>
-                    <button type="button" class="btn btn-blue-grey">
-                        <h6 id="call-company">Call Company</h6>
+                    <button type="button" class="btn btn-blue-grey btn-sm">
+                        <h6 id="call-company" class="m-0">Call</h6>
                     </button>
-                    <button type="button" class="btn btn-info">
-                        <h6 id="visit-company">Visit Company Site</h6>
+                    <button type="button" class="btn btn-info btn-sm">
+                        <h6 id="visit-company" class="m-0">Visit Site</h6>
                     </button>
                 </div>
                 <div id="close-button" class="close-button d-flex justify-content-center align-items-center p-1"><i id="arrow-direction"
                         class="fa fa-chevron-left"></i></div>
-            </div>         
+            </div>
+            <div class="distor-selector-container d-flex flex-column">
+                <h6 class="text-white ml-1 mb-1">Destination</h6>
+                <select id="distor-selector" class="distor-selector w-100">
+                    <option value="484">Mexico</option>
+                    <option value="156">China</option>
+                    <option value="608">Philippines</option>
+                    <option value="524">Nepal</option>
+                    <option value="702">Singapore</option>
+                    <option value="458">Malaysia</option>
+                    <option value="459">...</option>
+                </select>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="./js/d3/d3.min.js"></script>
-    <script type="text/javascript" src="./js/d3/jquery.min.js"></script>    
+    <script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./js/select2.min.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
 </body>
 

@@ -39,7 +39,7 @@ svg rect {
   fill: #eee;   /* country label background colour */  
 }
 
-/*info-pane for distributor info*/
+/*info-pane for map & company info*/
 .info-container {
   position: fixed;
   display: flex;
@@ -48,13 +48,14 @@ svg rect {
   width: 100vw;
   height: 100vh;    
 }
-.distributor-info {
-  position: fixed;  
+/* info-pane for company */
+.distor-info-container {
+  position: fixed;
   width: 200px;/* width: auto*/
   opacity: 0.9;
   z-index: 10;
 }
-.distributor-info .close-button {
+.distor-info-container .close-button {
   width: 22px;
   box-shadow: 2px 2px 5px 0 rgba(250, 216, 216, 0.16), 0 2px 10px 0 rgba(0,0,0,.12);    
   border-bottom-right-radius: 5px;
@@ -63,10 +64,20 @@ svg rect {
   background-color: white;
   cursor: pointer;
 }
-.distributor-info .close-button:hover {  
+.distor-info-container .close-button:hover {  
   background-color: #eef;
 }
-.distributor-info .info-body {  
+.distor-info-container .info-body {  
   background-color: white;
   box-shadow: 2px 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);    
 }
+/* select pane for company */
+.distor-selector-container {
+  position: fixed;
+  right: 4px;
+  bottom: 4px;
+  width: 150px;/* width: auto*/
+  opacity: 0.9;
+  z-index: 10;
+}
+

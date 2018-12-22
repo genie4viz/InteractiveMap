@@ -160,7 +160,7 @@ d3.json(
         d3.select("#countryLabel" + d.properties.iso_a3).style("display", "none");
       })
       // add an onclick action to zoom into clicked country
-      .on("click", function (d, i) {        
+      .on("click", function (d, i) {
         show_info(d.properties.iso_n3)
 
         d3.selectAll(".country").classed("country-on", false);
@@ -239,27 +239,33 @@ function show_info(country_id) {
   var selected = dealers.filter(ag => ag.id == country_id);
   if (selected.length > 0) {// if there is any matched company         
     $("#company-name").text(selected[0].company_name);
-    $("#distributor-name").text('Distributor for ' + selected[0].country);
+    $("#distor-name").text('Distributor for ' + selected[0].country);
     $("#country").text(selected[0].country);
-    $("#contact-company").text("Contact " + selected[0].company_name);
-    $("#call-company").text("Call " + selected[0].company_name);
-    $("#visit-company").text("Visit " + selected[0].company_name + " site");
+    $("#contact-company").text("Contact");
+    $("#call-company").text("Call");
+    $("#visit-company").text("Visit");
   }
 }
 // animation for showing info-pane
 var left_pos = 200, popup_pan = 22, expand_flag = true;
 $('#close-button').on('click', function () {
   if (expand_flag) {
-    $('#distributor-info').css({ "left": 0 }).animate({ "left": -left_pos + popup_pan }, 250, function () {
+    $('#distor-info-container').css({ "left": 0 }).animate({ "left": -left_pos + popup_pan }, 250, function () {
       $('#arrow-direction').removeClass("fa-chevron-left");
       $('#arrow-direction').addClass("fa-chevron-right");
       expand_flag = false;
     });
   } else {
-    $('#distributor-info').css({ "left": -left_pos + popup_pan }).animate({ "left": 0 }, 250, function () {
+    $('#distor-info-container').css({ "left": -left_pos + popup_pan }).animate({ "left": 0 }, 250, function () {
       $('#arrow-direction').removeClass("fa-chevron-right");
       $('#arrow-direction').addClass("fa-chevron-left");
       expand_flag = true;
     });
   }
 })
+//setting for select
+$(document).ready(function () {
+  $('.distor-selector').select2({
+    theme: "classic"
+  });
+});
