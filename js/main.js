@@ -2,6 +2,7 @@
 // Define size of map group
 // Full world map is 2:1 ratio
 // Using 12:5 because we will crop top and bottom of map
+var dealers = [];// distributor info json array.
 w = 3000;
 h = 1250;
 // variables for catching min and max zoom factors
@@ -227,15 +228,8 @@ d3.json(
 );
 //show information 
 function show_info(country_id) {
-  //show company informations per country
-  var dealers = [];
-  jQuery.ajax({
-    dataType: "json",
-    url: "json/dealer.json",
-    async: false,
-    success: function (data) { dealers = data }
-  });
 
+  //show company informations per country
   var selected = dealers.filter(ag => ag.id == country_id);
   if (selected.length > 0) {// if there is any matched company         
     $("#company-name").text(selected[0].company_name);
@@ -265,7 +259,22 @@ $('#close-button').on('click', function () {
 })
 //setting for select
 $(document).ready(function () {
-  $('.distor-selector').select2({
-    theme: "classic"
+  jQuery.ajax({
+    dataType: "json",
+    url: "json/dealer.json",
+    async: false,
+    success: function (data) { dealers = data }
   });
+  var countries = [];
+  
+  dealers.forEach(function(d){
+    countries.push(d.country);
+  })
+  $('.distor-selector').select2({
+    theme: "classic",
+    placeholder: "Select destination",
+    allowClear: true,
+    data: countries
+  });
+
 });
