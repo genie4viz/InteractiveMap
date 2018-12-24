@@ -3,6 +3,7 @@
 // Full world map is 2:1 ratio
 // Using 12:5 because we will crop top and bottom of map
 var dealers = [];// distributor info json array.
+var json_data = [];//total json datas
 w = 3000;
 h = 1250;
 // variables for catching min and max zoom factors
@@ -42,8 +43,7 @@ function getTextBox(selection) {
     .each(function (d) {
       d.bbox = this
         .getBBox();
-    })
-    ;
+    });
 }
 
 // Function that calculates zoom/pan limits and sets zoom to default value 
@@ -56,8 +56,7 @@ function initiateZoom() {
   // set translate extent so that panning can't cause map to move out of viewport
   zoom
     .scaleExtent([minZoom, maxZoom])
-    .translateExtent([[0, 0], [w, h]])
-    ;
+    .translateExtent([[0, 0], [w, h]]);
   // define X and Y offset for centre of map to be shown in centre of holder
   midX = ($("#map-holder").width() - minZoom * w) / 2;
   midY = ($("#map-holder").height() - minZoom * h) / 2;
@@ -111,8 +110,7 @@ $(window).resize(function () {
   // Resize SVG
   svg
     .attr("width", $("#map-holder").width())
-    .attr("height", $("#map-holder").height())
-    ;
+    .attr("height", $("#map-holder").height());
   initiateZoom();
 });
 
@@ -124,14 +122,14 @@ var svg = d3
   .attr("width", $("#map-holder").width())
   .attr("height", $("#map-holder").height())
   // add zoom functionality
-  .call(zoom)
-  ;
+  .call(zoom);
 
 
 // get map data
 d3.json(
   "./json/custom50.json",
   function (json) {
+    json_data = json;
     //Bind data and create one path per GeoJSON feature
     countriesGroup = svg.append("g").attr("id", "map");
     // add a background rectangle
@@ -145,7 +143,7 @@ d3.json(
     // draw a path for each feature/country
     countries = countriesGroup
       .selectAll("path")
-      .data(json.features)
+      .data(json_data.features)
       .enter()
       .append("path")
       .attr("d", path)
@@ -156,6 +154,8 @@ d3.json(
       // add a mouseover action to show name label for feature/country
       .on("mouseover", function (d, i) {
         d3.select("#countryLabel" + d.properties.iso_a3).style("display", "block");
+        // d3.selectAll(".country").classed("country-on", false);
+        // d3.select(this).classed("country-on", true);
       })
       .on("mouseout", function (d, i) {
         d3.select("#countryLabel" + d.properties.iso_a3).style("display", "none");
@@ -163,16 +163,15 @@ d3.json(
       // add an onclick action to zoom into clicked country
       .on("click", function (d, i) {
         show_info(d.properties.iso_n3)
-
         d3.selectAll(".country").classed("country-on", false);
-        d3.select(this).classed("country-on", true);
+        d3.select(this).classed("country-on", true);        
         boxZoom(path.bounds(d), path.centroid(d), 20);
       });
     // Add a label group to each feature/country. This will contain the country name and a background rectangle
     // Use CSS to have class "countryLabel" initially hidden
     countryLabels = countriesGroup
       .selectAll("g")
-      .data(json.features)
+      .data(json_data.features)
       .enter()
       .append("g")
       .attr("class", "countryLabel")
@@ -187,6 +186,7 @@ d3.json(
       // add mouseover functionality to the label
       .on("mouseover", function (d, i) {
         d3.select(this).style("display", "block");
+        d3.select(this).style("cursor", "pointer");
       })
       .on("mouseout", function (d, i) {
         d3.select(this).style("display", "none");
@@ -265,16 +265,24 @@ $(document).ready(function () {
     async: false,
     success: function (data) { dealers = data }
   });
-  var countries = [];
   
-  dealers.forEach(function(d){
-    countries.push(d.country);
-  })
+  var data = $.map(dealers, function (obj) {
+    obj.id = obj.id; // replace id with your identifier
+    obj.text = obj.text || obj.country;
+    return obj;
+  });
   $('.distor-selector').select2({
     theme: "classic",
     placeholder: "Select destination",
     allowClear: true,
-    data: countries
+    data: data
   });
-
+  $('.distor-selector').on('select2:select', function (e) {
+    var data = e.params.data;
+    d3.selectAll(".country").classed("country-on", false);
+    d3.selectAll(".country").filter(d => d.properties.iso_n3 == data.id).classed("country-on", true);
+    var j_node = json_data.features.filter(jd => jd.properties.iso_n3 == data.id)[0];    
+    boxZoom(path.bounds(j_node), path.centroid(j_node), 20);
+    show_info(j_node.properties.iso_n3);
+  });
 });
