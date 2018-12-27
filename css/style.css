@@ -57,7 +57,7 @@ svg rect {
   cursor: pointer;
 }
 .distor-info-container .close-button:hover {  
-  background-color: #eef;
+  background-color: #ccd;
 }
 .distor-info-container .info-body {  
   background-color: white;
