@@ -2,8 +2,9 @@
 // Define size of map group
 // Full world map is 2:1 ratio
 // Using 12:5 because we will crop top and bottom of map
-var color_normal = "#00496e";
-var color_selected = "#00886e";
+var color_normal = "#333";
+var color_selected = "#e91e63";
+
 var dealers = [];// distributor info json array.
 var json_data = [];//total json datas
 w = 3000;
@@ -35,7 +36,9 @@ function zoomed() {
   t = d3
     .event
     .transform;
+  
   countriesGroup
+    .transition()
     .attr("transform", "translate(" + [t.x, t.y] + ")scale(" + t.k + ")");
 }
 
@@ -43,14 +46,6 @@ function zoomed() {
 var zoom = d3
   .zoom()
   .on("zoom", zoomed);
-
-function getTextBox(selection) {
-  selection
-    .each(function (d) {
-      d.bbox = this
-        .getBBox();
-    });
-}
 
 // Function that calculates zoom/pan limits and sets zoom to default value 
 function initiateZoom() {
@@ -102,9 +97,7 @@ function boxZoom(box, centroid, paddingPerc) {
   dleft = Math.max($("svg").width() - w * zoomScale, dleft);
   dtop = Math.max($("svg").height() - h * zoomScale, dtop);
   // set zoom
-  svg
-    .transition()
-    .duration(500)
+  svg        
     .call(
       zoom.transform,
       d3.zoomIdentity.translate(dleft, dtop).scale(zoomScale)
@@ -157,11 +150,12 @@ d3.json(
         return "country" + d.properties.iso_a3;
       })
       .attr("class", "country")
+      .style("opacity", 0.7)
       // add a mouseover action to show name label for feature/country
       .on("mouseover", function (d, i) {
-
         d3.select(this).transition().style("opacity", 1);
         d3.select(this).style("cursor", "pointer");
+
         div.transition()
           .duration(200)
           .style("opacity", .9);
@@ -178,7 +172,9 @@ d3.json(
       // add an onclick action to zoom into clicked country
       .on("click", function (d, i) {
         show_info(d.properties.iso_n3);
-        d3.selectAll(".country").style("fill", "#00496e");
+        d3.selectAll(".country")
+          .style("fill", color_normal)
+
         d3.select(this).transition().style("fill", color_selected);
         boxZoom(path.bounds(d), path.centroid(d), 100);
       });
@@ -195,7 +191,8 @@ function show_info(country_id) {
     $("#distor-name").text('Distributor for ' + selected[0].country);
     $("#country").text(selected[0].country);
     $("#contact-company").text("Contact");
-    $("#call-company").text("Call");
+    let call_number = selected[0].phone != '' ? selected[0].phone : selected[0].tel;
+    $("#call-company").text(call_number);
     $("#visit-company").text("Visit");
   }
 }
@@ -216,15 +213,20 @@ $('#close-button').on('click', function () {
     });
   }
 })
-//handler for zoom in/out
-$('#zoom-in').on('click', function () {
-  zoom.scaleBy(d3.select("svg").transition().duration(750), 1.2);
+
+//handler for zoom home/in/out
+$('#zoom-home').on('click', function () {
+  initiateZoom();
+});
+$('#zoom-in').on('click', function () {  
+  zoom.scaleBy(d3.select("svg"), 1.2);
 });
 $('#zoom-out').on('click', function () {
-  zoom.scaleBy(d3.select("svg").transition().duration(750), 0.8);
+  zoom.scaleBy(d3.select("svg"), 0.8);
 });
+
 //setting for select
-$(document).ready(function () {  
+$(document).ready(function () {
 
   jQuery.ajax({
     dataType: "json",
