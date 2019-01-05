@@ -36,7 +36,7 @@ function zoomed() {
   t = d3
     .event
     .transform;
-  
+
   countriesGroup
     .transition()
     .attr("transform", "translate(" + [t.x, t.y] + ")scale(" + t.k + ")");
@@ -97,7 +97,7 @@ function boxZoom(box, centroid, paddingPerc) {
   dleft = Math.max($("svg").width() - w * zoomScale, dleft);
   dtop = Math.max($("svg").height() - h * zoomScale, dtop);
   // set zoom
-  svg        
+  svg
     .call(
       zoom.transform,
       d3.zoomIdentity.translate(dleft, dtop).scale(zoomScale)
@@ -187,14 +187,18 @@ function show_info(country_id) {
   //show company informations per country
   var selected = dealers.filter(ag => ag.id == country_id);
   if (selected.length > 0) {// if there is any matched company         
-    $("#company-name").text(selected[0].company_name);
-    $("#distor-name").text('Distributor for ' + selected[0].country);
-    $("#country").text(selected[0].country);
-    $("#contact-company").text("Contact");
-    let call_number = selected[0].phone != '' ? selected[0].phone : selected[0].tel;
-    $("#call-company").text(call_number);
-    $("#visit-company").text("Visit");
+    selected = selected[0];
+  } else {
+    selected = dealers[0];
   }
+  $("#company-name").text(selected.company_name);
+  $("#distor-name").text('Distributor for ' + selected.country);
+  $("#country").text(selected.country);
+  $("#description").text(selected.description);
+  $("#contact-company").text("Contact");
+  let call_number = selected.phone != '' ? selected.phone : selected.tel;
+  $("#call-company").text(call_number);
+  $("#visit-company").text("Visit");
 }
 // animation for showing info-pane
 var left_pos = 200, popup_pan = 22, expand_flag = true;
@@ -218,7 +222,7 @@ $('#close-button').on('click', function () {
 $('#zoom-home').on('click', function () {
   initiateZoom();
 });
-$('#zoom-in').on('click', function () {  
+$('#zoom-in').on('click', function () {
   zoom.scaleBy(d3.select("svg"), 1.2);
 });
 $('#zoom-out').on('click', function () {
@@ -234,6 +238,9 @@ $(document).ready(function () {
     async: false,
     success: function (data) { dealers = data }
   });
+
+  //show international distributor
+  show_info();
 
   var data = $.map(dealers, function (obj) {
     obj.id = obj.id; // replace id with your identifier
