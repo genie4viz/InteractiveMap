@@ -231,12 +231,12 @@ $('#zoom-out').on('click', function () {
 
 //setting for select
 $(document).ready(function () {
-
+  console.log("aa")
   jQuery.ajax({
     dataType: "json",
     url: "json/dealer.json",
     async: false,
-    success: function (data) { dealers = data }
+    success: function (data) { dealers = data;}
   });
 
   //show international distributor
