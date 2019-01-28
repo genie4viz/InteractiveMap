@@ -57,17 +57,20 @@ function initiateZoom() {
   // set translate extent so that panning can't cause map to move out of viewport
   zoom
     .scaleExtent([minZoom, maxZoom])
-    .translateExtent([[0, 0], [w, h]]);
+    .translateExtent([[0, 0], [w, h]]);  
+  
   // define X and Y offset for centre of map to be shown in centre of holder
   midX = ($("#map-holder").width() - minZoom * w) / 2;
   midY = ($("#map-holder").height() - minZoom * h) / 2;
   // change zoom transform to min zoom and centre offsets
+  console.log(midX + ":" + midY)
   svg.call(zoom.transform, d3.zoomIdentity.translate(midX, midY).scale(minZoom));
 }
 
 // zoom to show a bounding box, with optional additional padding as percentage of box size
 function boxZoom(box, centroid, paddingPerc) {
   minXY = box[0];
+  console.log(box)
   maxXY = box[1];
   // find size of map area defined
   zoomWidth = Math.abs(minXY[0] - maxXY[0]);
@@ -174,7 +177,7 @@ d3.json(
         show_info(d.properties.iso_n3);
         d3.selectAll(".country")
           .style("fill", color_normal)
-
+        console.log("click")
         d3.select(this).transition().style("fill", color_selected);
         boxZoom(path.bounds(d), path.centroid(d), 100);
       });
@@ -231,7 +234,7 @@ $('#zoom-out').on('click', function () {
 
 //setting for select
 $(document).ready(function () {
-  console.log("aa")
+  
   jQuery.ajax({
     dataType: "json",
     url: "json/dealer.json",
