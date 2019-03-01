@@ -16,36 +16,39 @@
 
 <body>
     <div class="container m-0 p-0 justify-content-center">
-        <div class="info-container justify-content-start align-items-center">
-            <div id="map-holder"></div>
-            <div id="distor-info-container" class="distor-info-container d-flex">
-                <div class="info-body w-100 h-100 p-1 d-flex flex-column">				
-                    <h4 id="company-name" class="text-dark strong ml-2 mt-2">Company Name</h4>
-                    <h6 id="distor-name" class="text-dark ml-2">Distributor</h6>
-                    <h5 id="country" class="text-dark ml-2">Country</h5>
-                    <h6 id="description" class="text-dark ml-2"> </h6>
-                    <button type="button" class="btn grey darken-3 btn-sm">
-                        <h6 id="contact-company" class="m-0">Contact</h6>
-                    </button>
-                    <button type="button" class="btn pink btn-sm">
-                        <h6 id="call-company" class="m-0">Call</h6>
-                    </button>
-                    <button type="button" class="btn grey darken-4 btn-sm">
-                        <h6 id="visit-company" class="m-0">Visit Site</h6>
-                    </button>
+        <div class="info-container justify-content-start d-flex">            
+            <div id="distor-info-container" class="distor-info-container d-flex justify-content-center mt-4 ml-5 border border-light">
+                <div class="info-body d-flex flex-column p-2 m-4 w-100">
+                    <div class="distor-selector-container d-flex flex-column pb-4 m-2 border border-light border-left-0 border-right-0 border-top-0">
+                        <h4 class="text-dark font-weight-bold mb-4">Find a distributor</h4>
+                        <select id="distor-selector" class="distor-selector">
+                            <option></option>
+                        </select>
+                    </div>
+                    
+                    <h4 id="company-name" class="text-pink font-weight-bold p-2 mt-2 mb-2">Company Name</h4>
+                    <h6 id="street-address" class="text-dark p-2">Street address</h6>
+                    <h6 id="second-line-street-address" class="text-dark p-2">Second line of street address</h6>
+                    <h6 id="country-name" class="text-dark p-2 mb-4">Country</h6>
+
+                    <!-- <h6 id="description" class="text-dark p-2 mb-4">Country</h6> -->
+                    <h6 id="call-partner" class="text-dark font-weight-bold p-2">Show partner's phone number</h6>
+                    <h6 id="phone-number" class="text-dark p-2"></h6>
+                    <h6 id="visit-partner" class="text-dark font-weight-bold p-2">Visit partner's website<i class="fa fa-angle-right ml-2"></i></h6>
+                    <div class="d-flex mt-4">
+                        <button type="button" class="btn pink pt-4 pb-4 btn-lg align-item-center text-capitalize">
+                            <h6 class="m-0">Contact Distributor<i class="fa fa-angle-right ml-4"></i></h6>
+                        </button>
+                    </div>                    
+                </div>                
+            </div>
+            <div id="map-holder" class="flex-fill">
+                <div class="zoom-frame flex-column">
+                    <div id="zoom-home" class="zoom-home mb-1"><i class="fa fa-home" aria-hidden="true"></i></div>
+                    <div id="zoom-in" class="zoom-in mb-1"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                    <div id="zoom-out" class="zoom-out mb-1"><i class="fa fa-minus" aria-hidden="true"></i></div>
                 </div>
-                <div id="close-button" class="close-button d-flex justify-content-center align-items-center p-1"><i id="arrow-direction"
-                        class="fa fa-chevron-left"></i></div>
             </div>
-            <div class="distor-selector-container d-flex flex-column">
-                <h6 class="text-dark ml-1 mb-1">Destination</h6>
-                <select id="distor-selector" class="distor-selector w-100">
-                    <option></option>
-                </select>
-            </div>
-            <div id="zoom-home" class="zoom-home"><i class="fa fa-home" aria-hidden="true"></i></div>
-            <div id="zoom-in" class="zoom-in"><i class="fa fa-plus" aria-hidden="true"></i></div>
-            <div id="zoom-out" class="zoom-out"><i class="fa fa-minus" aria-hidden="true"></i></div>
         </div>
     </div>
     <script type="text/javascript" src="./js/d3/d3.min.js"></script>

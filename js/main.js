@@ -57,20 +57,17 @@ function initiateZoom() {
   // set translate extent so that panning can't cause map to move out of viewport
   zoom
     .scaleExtent([minZoom, maxZoom])
-    .translateExtent([[0, 0], [w, h]]);  
-  
+    .translateExtent([[0, 0], [w, h]]);
   // define X and Y offset for centre of map to be shown in centre of holder
   midX = ($("#map-holder").width() - minZoom * w) / 2;
   midY = ($("#map-holder").height() - minZoom * h) / 2;
   // change zoom transform to min zoom and centre offsets
-  console.log(midX + ":" + midY)
   svg.call(zoom.transform, d3.zoomIdentity.translate(midX, midY).scale(minZoom));
 }
 
 // zoom to show a bounding box, with optional additional padding as percentage of box size
 function boxZoom(box, centroid, paddingPerc) {
   minXY = box[0];
-  console.log(box)
   maxXY = box[1];
   // find size of map area defined
   zoomWidth = Math.abs(minXY[0] - maxXY[0]);
@@ -177,7 +174,7 @@ d3.json(
         show_info(d.properties.iso_n3);
         d3.selectAll(".country")
           .style("fill", color_normal)
-        console.log("click")
+
         d3.select(this).transition().style("fill", color_selected);
         boxZoom(path.bounds(d), path.centroid(d), 100);
       });
@@ -185,41 +182,35 @@ d3.json(
   }
 );
 //show information 
+var selected_dealer;
 function show_info(country_id) {
 
   //show company informations per country
-  var selected = dealers.filter(ag => ag.id == country_id);
-  if (selected.length > 0) {// if there is any matched company         
-    selected = selected[0];
+  selected_dealer = dealers.filter(ag => ag.id == country_id);
+  if (selected_dealer.length > 0) {// if there is any matched company         
+    selected_dealer = selected_dealer[0];
   } else {
-    selected = dealers[0];
+    selected_dealer = dealers[0];
   }
-  $("#company-name").text(selected.company_name);
-  $("#distor-name").text('Distributor for ' + selected.country);
-  $("#country").text(selected.country);
-  $("#description").text(selected.description);
-  $("#contact-company").text("Contact");
-  let call_number = selected.phone != '' ? selected.phone : selected.tel;
-  $("#call-company").text(call_number);
-  $("#visit-company").text("Visit");
+  $("#company-name").text(selected_dealer.company_name);
+  $("#distor-name").text('Distributor for ' + selected_dealer.country);
+  $("#country-name").text(selected_dealer.country);
+  // $("#description").text(selected.description);
+  // $("#contact-company").text("Contact");
+  $("#phone-number").css("display","none");
+  $("#call-partner").text("Show partner's phone number");
+  // $("#visit-partner").text("Visit");
 }
-// animation for showing info-pane
-var left_pos = 200, popup_pan = 22, expand_flag = true;
-$('#close-button').on('click', function () {
-  if (expand_flag) {
-    $('#distor-info-container').css({ "left": 0 }).animate({ "left": -left_pos + popup_pan }, 250, function () {
-      $('#arrow-direction').removeClass("fa-chevron-left");
-      $('#arrow-direction').addClass("fa-chevron-right");
-      expand_flag = false;
-    });
-  } else {
-    $('#distor-info-container').css({ "left": -left_pos + popup_pan }).animate({ "left": 0 }, 250, function () {
-      $('#arrow-direction').removeClass("fa-chevron-right");
-      $('#arrow-direction').addClass("fa-chevron-left");
-      expand_flag = true;
-    });
+//handler for phone number
+$('#call-partner').on('click', function () {
+  if($("#phone-number").css("display") == "none"){
+    var call_number = selected_dealer.phone != '' ? selected_dealer.phone : selected_dealer.tel;
+    $("#phone-number").css("display","flex");
+    $("#phone-number").text(call_number);
+  }else{
+    $("#phone-number").css("display", "none")
   }
-})
+});
 
 //handler for zoom home/in/out
 $('#zoom-home').on('click', function () {
@@ -234,12 +225,12 @@ $('#zoom-out').on('click', function () {
 
 //setting for select
 $(document).ready(function () {
-  
+
   jQuery.ajax({
     dataType: "json",
     url: "json/dealer.json",
     async: false,
-    success: function (data) { dealers = data;}
+    success: function (data) { dealers = data }
   });
 
   //show international distributor
