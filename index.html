@@ -6,49 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Interactive Map</title>
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/mdb.lite.min.css" rel="stylesheet">
     <link href="./css/mdb.min.css" rel="stylesheet">
-    <link href="./css/font-awesome.min.css" rel="stylesheet">
-    <link href="./css/select2.min.css" rel="stylesheet">
-    <!-- <link href="./css/overide.css" rel="stylesheet"> -->
+    <link href="./css/font-awesome.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="./css/select2.min.css" rel="stylesheet"> 
+    <link href="./css/overide.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">                 
-        <div id="distor-info-container" class="distor-info-container d-flex col-sm-4 justify-content-center mt-4 ml-5 border border-light">
-            <div class="info-body d-flex flex-column p-2 m-4 w-100">
-                <div class="distor-selector-container d-flex flex-column pb-4 m-2 border border-light border-left-0 border-right-0 border-top-0">
-                    <h4 class="text-dark font-weight-bold mb-4">Find a distributor</h4>
-                    <select id="distor-selector" class="distor-selector">
+    <div class="container">        
+        <div class="distor-info-container">
+            <div class="info-body">
+                <div class="distor-selector-container">
+                    <h2>Find a distributor</h2>
+                    <select class="distor-selector" style="width:100%">
                         <option></option>
                     </select>
                 </div>
                 
-                <h4 id="company-name" class="text-pink font-weight-bold p-2 mt-2 mb-2">Company Name</h4>
-                <h6 id="street-address" class="text-dark p-2">Street address</h6>
-                <h6 id="second-line-street-address" class="text-dark p-2">Second line of street address</h6>
-                <h6 id="country-name" class="text-dark p-2 mb-4">Country</h6>
-
-                <!-- <h6 id="description" class="text-dark p-2 mb-4">Country</h6> -->
-                <h6 id="call-partner" class="text-dark font-weight-bold p-2">Show partner's phone number</h6>
-                <h6 id="phone-number" class="text-dark p-2"></h6>
-                <h6 id="visit-partner" class="text-dark font-weight-bold p-2">Visit partner's website<i class="fa fa-angle-right ml-2"></i></h6>
-                <div class="d-flex mt-4">
-                    <button type="button" class="btn btn-m-pink pt-4 pb-4 btn-lg align-item-center text-capitalize">
-                        <h6 class="m-0">Contact Distributor<i class="fa fa-angle-right ml-4"></i></h6>
+                <h2 class="company-name">Company Name</h2>
+                <h4 class="street-address">Street address</h4>
+                <h4 class="second-line-street-address">Second line of street address</h4>
+                <h4 class="country-name">Country</h4>
+                
+                <h4 class="call-partner" style="margin-top:30px">Show partner's phone number</h4>
+                <h4 class="phone-number"></h4>
+                <h4 class="visit-partner" style="margin-bottom:30px">Visit partner's website</h4>
+                <div>
+                    <button type="button" class="contact-button">
+                        <h2>Contact Distributor<i class="fa fa-angle-right" style="margin-left:10px"></i></h2>
                     </button>
                 </div>                    
             </div>                
         </div>
-        <div id="map-holder" class="d-flex col-sm-8 p-0 m-0">
-            <div class="zoom-frame d-flex">
-                <div id="zoom-home" class="zoom-home mr-1"><i class="fa fa-home" aria-hidden="true"></i></div>
-                <div id="zoom-in" class="zoom-in mr-1"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                <div id="zoom-out" class="zoom-out mr-1"><i class="fa fa-minus" aria-hidden="true"></i></div>
+        <div id="map-holder">
+            <div class="zoom-frame">
+                <div class="zoom-home"><i class="fas fa-home"></i></div>
+                <div class="zoom-in"><i class="fas fa-plus"></i></div>
+                <div class="zoom-out"><i class="fas fa-minus"></i></div>
             </div>
-        </div>        
+        </div>
+        
     </div>
     <script type="text/javascript" src="./js/d3/d3.min.js"></script>
     <script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>

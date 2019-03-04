@@ -107,6 +107,7 @@ function boxZoom(box, centroid, paddingPerc) {
 // on window resize
 $(window).resize(function () {
   // Resize SVG
+  console.log($("#map-holder").width() + ":" + $("#map-holder").height())
   svg
     .attr("width", $("#map-holder").width())
     .attr("height", $("#map-holder").height());
@@ -192,34 +193,34 @@ function show_info(country_id) {
   } else {
     selected_dealer = dealers[0];
   }
-  $("#company-name").text(selected_dealer.company_name);
-  $("#distor-name").text('Distributor for ' + selected_dealer.country);
-  $("#country-name").text(selected_dealer.country);
+  $(".company-name").text(selected_dealer.company_name);
+  $(".distor-name").text('Distributor for ' + selected_dealer.country);
+  $(".country-name").text(selected_dealer.country);
   // $("#description").text(selected.description);
   // $("#contact-company").text("Contact");
-  $("#phone-number").css("display","none");
-  $("#call-partner").text("Show partner's phone number");
+  $(".phone-number").css("display","none");
+  $(".call-partner").text("Show partner's phone number");
   // $("#visit-partner").text("Visit");
 }
 //handler for phone number
-$('#call-partner').on('click', function () {
-  if($("#phone-number").css("display") == "none"){
+$('.call-partner').on('click', function () {
+  if($(".phone-number").css("display") == "none"){
     var call_number = selected_dealer.phone != '' ? selected_dealer.phone : selected_dealer.tel;
-    $("#phone-number").css("display","flex");
-    $("#phone-number").text(call_number);
+    $(".phone-number").css("display","flex");
+    $(".phone-number").text(call_number);
   }else{
-    $("#phone-number").css("display", "none")
+    $(".phone-number").css("display", "none")
   }
 });
 
 //handler for zoom home/in/out
-$('#zoom-home').on('click', function () {
+$('.zoom-home').on('click', function () {
   initiateZoom();
 });
-$('#zoom-in').on('click', function () {
+$('.zoom-in').on('click', function () {
   zoom.scaleBy(d3.select("svg"), 1.2);
 });
-$('#zoom-out').on('click', function () {
+$('.zoom-out').on('click', function () {
   zoom.scaleBy(d3.select("svg"), 0.8);
 });
 
@@ -230,7 +231,7 @@ $(document).ready(function () {
     dataType: "json",
     url: "json/dealer.json",
     async: false,
-    success: function (data) { dealers = data }
+    success: function (data) { dealers = data; }
   });
 
   //show international distributor
