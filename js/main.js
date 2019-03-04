@@ -3,7 +3,7 @@
 // Full world map is 2:1 ratio
 // Using 12:5 because we will crop top and bottom of map
 var color_normal = "#333";
-var color_selected = "#e91e63";
+var color_selected = "#0000ff";
 
 var dealers = [];// distributor info json array.
 var json_data = [];//total json datas
@@ -107,7 +107,7 @@ function boxZoom(box, centroid, paddingPerc) {
 // on window resize
 $(window).resize(function () {
   // Resize SVG
-  console.log($("#map-holder").width() + ":" + $("#map-holder").height())
+  // console.log($("#map-holder").width() + ":" + $("#map-holder").height())
   svg
     .attr("width", $("#map-holder").width())
     .attr("height", $("#map-holder").height());
@@ -159,10 +159,13 @@ d3.json(
 
         div.transition()
           .duration(200)
-          .style("opacity", .9);
+          .style("opacity", 0.9);
+          
+        // console.log(path.bounds(d))
+        // console.log(d3/event.pagex)
         div.html(d.properties.formal_en)
-          .style("left", (d3.event.pageX) + 5 / 1 + "px")
-          .style("top", (d3.event.pageY) + 5 / 1 + "px");
+          .style("left", (d3.event.pageX) + 30/1 + "px")
+          .style("top", (d3.event.pageY) + "px");
       })
       .on("mouseout", function (d, i) {
         d3.select(this).transition().style("opacity", 0.7);
@@ -199,19 +202,20 @@ function show_info(country_id) {
   // $("#description").text(selected.description);
   // $("#contact-company").text("Contact");
   $(".phone-number").css("display","none");
-  $(".call-partner").text("Show partner's phone number");
+  var call_number = selected_dealer.phone != '' ? selected_dealer.phone : selected_dealer.tel;
+  $(".call-partner").text(call_number);
   // $("#visit-partner").text("Visit");
 }
 //handler for phone number
-$('.call-partner').on('click', function () {
-  if($(".phone-number").css("display") == "none"){
-    var call_number = selected_dealer.phone != '' ? selected_dealer.phone : selected_dealer.tel;
-    $(".phone-number").css("display","flex");
-    $(".phone-number").text(call_number);
-  }else{
-    $(".phone-number").css("display", "none")
-  }
-});
+// $('.call-partner').on('click', function () {
+//   if($(".phone-number").css("display") == "none"){
+//     var call_number = selected_dealer.phone != '' ? selected_dealer.phone : selected_dealer.tel;
+//     $(".phone-number").css("display","flex");
+//     $(".phone-number").text(call_number);
+//   }else{
+//     $(".phone-number").css("display", "none")
+//   }
+// });
 
 //handler for zoom home/in/out
 $('.zoom-home').on('click', function () {

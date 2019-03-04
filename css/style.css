@@ -55,6 +55,7 @@ svg rect {
 
 /* tip-pane */
 div.tooltip {
+  position: fixed;
   border: 1px;
   border-color: white;
   box-shadow: 2px 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);    
@@ -64,7 +65,7 @@ div.tooltip {
   border-radius: 5px;
   font-size: 14px;
   color: white;
-  background: #e91e63;
+  background: #0000ff;
   cursor: pointer;
 }
 
@@ -84,7 +85,8 @@ div.tooltip {
   font-size: 18px;
   color: white;  
   cursor: pointer;  
-  padding: 6px 5px;  
+  padding: 6px 5px;
+  margin-right: 1px;
 }
 .zoom-frame .zoom-home:hover{
   background: #333;
@@ -141,4 +143,22 @@ div.tooltip {
   color: #fff;
   -webkit-appearance: button;  
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+.company-name {
+  font-weight: 600;
+}
+.street-address {
+  font-weight: 300;
+}
+.second-line-street-address{
+  font-weight: 300;
+}
+.country-name {
+  font-weight: 300;
+}
+.call-partner {
+  font-weight: 600;
+}
+.visit-partner {
+  font-weight: 600;
 }
